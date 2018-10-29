@@ -368,7 +368,7 @@ TR_S390Recompilation::generatePrologue(TR::Instruction* cursor)
 
    // Load the body info address. Note the use of getExtendedLoadOpCode because our offset is negative. This means on
    // a 31-bit target we will generate an LY instruction (6-byte) vs. and L instruction (4-byte).
-   cursor = generateRXInstruction(cg, TR::InstOpCode::getExtendedLoadOpCode(), node, cg->machine()->getS390RealRegister(TR::RealRegister::GPR1), bodyInfoAddressMemRef, cursor);
+   cursor = generateRXYInstruction(cg, TR::InstOpCode::getExtendedLoadOpCode(), node, cg->machine()->getS390RealRegister(TR::RealRegister::GPR1), bodyInfoAddressMemRef, cursor);
 
    TR::MemoryReference* counterFieldMemRef = generateS390MemoryReference(cg->machine()->getS390RealRegister(TR::RealRegister::GPR1), offsetof(TR_PersistentJittedBodyInfo, _counter), cg);
 
