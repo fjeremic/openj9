@@ -335,6 +335,37 @@
 		</subsets>
 	</test>
 
+  <!-- jit.test.ra tests start here -->
+  <test>
+    <testCaseName>jit_ra</testCaseName>
+    <variations>
+      <variation>-Xmn1M -Xjit:'{*powerOfTenBI*}(count=7),disableasynccompilation,tryToInline={java/lang/String.<init>([C)V|java/lang/String.<init>([CII)V|java/lang/Object.<init>()V|java/math/BigInteger.<init>(Ljava/lang/String;)V|java/math/BigInteger.<init>(Ljava/lang/String;I)V|java/lang/Object.<init>()V|java/lang/String.length()I|java/lang/String.lengthInternal()I},dontInline={java/util/Arrays.fill([CC)V}'</variation>
+    </variations>
+    <command>
+      $(JAVA_COMMAND) $(JVM_OPTIONS) \
+      -cp $(Q)$(RESOURCES_DIR)$(P)$(TESTNG)$(P)$(TEST_RESROOT)$(D)jitt.jar$(Q) \
+      org.testng.TestNG -d $(REPORTDIR) $(Q)$(TEST_RESROOT)$(D)testng.xml$(Q) \
+      -testnames \
+      raTest \
+      -groups $(TEST_GROUP) \
+      -excludegroups $(DEFAULT_EXCLUDE); \
+      $(TEST_STATUS)
+    </command>
+    <platformRequirements>^arch.arm</platformRequirements>
+    <levels>
+      <level>sanity</level>
+    </levels>
+    <groups>
+      <group>functional</group>
+    </groups>
+    <subsets>
+      <subset>8</subset>
+      <subset>9</subset>
+      <subset>10</subset>
+      <subset>11</subset>
+    </subsets>
+  </test>
+
 	<!-- jit.test.vich tests start here -->
 	<test>
 		<testCaseName>jit_vich</testCaseName>
