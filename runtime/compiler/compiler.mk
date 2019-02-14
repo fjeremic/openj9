@@ -78,6 +78,10 @@ ifneq ($(findstring DPROD_WITH_ASSUMES, $(USERCFLAGS)),)
     ASSUMES=1
 endif
 
+ifneq ($(findstring DENABLE_NON_FATAL_ASSERTS, $(USERCFLAGS)),)
+    ALIASASSERTS=1
+endif
+
 #
 # "all" should be the first target to appear so it's the default
 #
