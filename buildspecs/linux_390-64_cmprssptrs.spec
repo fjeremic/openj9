@@ -55,8 +55,8 @@ SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0 WITH Classpath-excepti
 		<property name="graph_label.osid" value="lnx"/>
 		<property name="graph_label.profile" value="_cmprssptrs"/>
 		<property name="graph_make_parallel_arg" value="-j `numberOfCPUs`"/>
-		<property name="graph_req.arch0" value="arch:390"/>
-		<property name="graph_req.arch1" value="arch:64bit"/>
+		<property name="graph_req.arch0" value="arch:z15"/>
+		<property name="graph_req.arch1" value="arch:z15"/>
 		<property name="graph_req.aux0" value=""/>
 		<property name="graph_req.aux1" value=""/>
 		<property name="graph_req.build" value="{$common.req.build.java9$}"/>
