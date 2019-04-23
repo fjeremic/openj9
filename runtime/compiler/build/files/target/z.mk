@@ -54,7 +54,8 @@ JIT_PRODUCT_BACKEND_SOURCES+=\
     omr/compiler/z/codegen/TranslateEvaluator.cpp \
     omr/compiler/z/codegen/UnaryEvaluator.cpp \
     omr/compiler/z/codegen/snippet/PPA1Snippet.cpp \
-    omr/compiler/z/codegen/snippet/PPA2Snippet.cpp
+    omr/compiler/z/codegen/snippet/PPA2Snippet.cpp \
+    omr/compiler/z/codegen/snippet/XPLINKCallDescriptorSnippet.cpp
 
 JIT_PRODUCT_SOURCE_FILES+=\
     compiler/z/codegen/DFPTreeEvaluator.cpp \
