@@ -688,7 +688,6 @@ TR_CHTable::commitVirtualGuard(TR_VirtualGuard *info, List<TR_VirtualGuardSite> 
       }
    else
       {
-      TR_ASSERT(false, "should be unreachable");
       nopAssumptionIsValid = false;
       }
 
