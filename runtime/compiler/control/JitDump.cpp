@@ -433,6 +433,10 @@ IDATA dumpJitInfo(J9VMThread *crashedThread, char *logFileLabel, J9RASdumpContex
       "<jitDump>\n"
       );
 
+   if (J9_XACCESS_NONE != jitConfig->javaVM->exclusiveAccessState)
+      {
+      jitConfig->javaVM->internalVMFunctions->releaseExclusiveVMAccessFromExternalThread(jitConfig->javaVM);
+      }
 
    // if some thread holds exclusive VM access we cannot do much
    if (J9_XACCESS_NONE != jitConfig->javaVM->exclusiveAccessState)
