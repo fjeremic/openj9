@@ -1205,6 +1205,8 @@ private:
    TR_JitSampleInfo  _jitSampleInfo;
    TR_SharedCacheRelocationRuntime _sharedCacheReloRuntime;
    uintptr_t _vmStateOfCrashedThread; // Set by Jit Dump; used by diagnostic thread
+   public:
+   uint32_t                    _originalCrashOptions[32];
 #if defined(J9VM_OPT_SHARED_CLASSES)
    J9SharedClassJavacoreDataDescriptor _javacoreData;
 #endif

@@ -7969,6 +7969,8 @@ TR::CompilationInfoPerThreadBase::wrappedCompile(J9PortLibrary *portLib, void * 
                 threadCompInfo->isDiagnosticThread() &&
                 options->getDebug())
                {
+               memcpy(options->_options, compInfo->_originalCrashOptions, sizeof(uint32_t) * 32);
+
                // Trace All
                options->setOption(TR_TraceAll);
 

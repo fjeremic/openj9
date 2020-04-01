@@ -280,6 +280,7 @@ static UDATA logStackIterator(J9VMThread *currentThread, J9StackWalkState *walkS
 
 /// Recompiles a method for the JIT dump
 static TR_CompilationErrorCode recompileMethodForLog(
+   TR::Compilation* comp,
    J9VMThread         *vmThread,
    J9Method           *ramMethod,
    TR::CompilationInfo *compInfo,
@@ -319,6 +320,11 @@ static TR_CompilationErrorCode recompileMethodForLog(
 
    // Set the VM state of the crashed thread so the diagnostic thread can use consume it
    compInfo->setVMStateOfCrashedThread(vmThread->omrVMThread->vmState);
+
+   if (comp != NULL)
+      {
+      memcpy(compInfo->_originalCrashOptions, comp->getOptions()->_options, sizeof(uint32_t) * 32);
+      }
 
    // create a compilation request
    // NOTE: operator new() is overridden, and takes a storage object as a parameter
@@ -584,6 +590,7 @@ IDATA dumpJitInfo(J9VMThread *crashedThread, char *logFileLabel, J9RASdumpContex
 
             TR_CompilationErrorCode compErrCode;
             compErrCode = recompileMethodForLog(
+               NULL,
                crashedThread,
                jittedMethodsOnStack[i]._method,
                compInfo,
@@ -649,6 +656,7 @@ IDATA dumpJitInfo(J9VMThread *crashedThread, char *logFileLabel, J9RASdumpContex
                // request the compilation
                TR_CompilationErrorCode compErrCode;
                compErrCode = recompileMethodForLog(
+                  comp,
                   crashedThread,
                   (J9Method *)(comp->getCurrentMethod()->getPersistentIdentifier()),
                   compInfo,
