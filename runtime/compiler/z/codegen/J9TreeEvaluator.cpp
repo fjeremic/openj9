@@ -5724,20 +5724,12 @@ J9::Z::TreeEvaluator::evaluateNULLCHKWithPossibleResolve(TR::Node * node, bool n
          }
       else
          {
-         // cg->comp()->useCompressedPointers
-         // this will end up evaluating either the l2a sequence (for loads)
-         // or the iistore (in case of iastores)
-         //
-         // for stores under NULLCHKs, artificially bump
-         // down the reference count before evaluation (since stores
-         // return null as registers)
-         //
-         bool fixRefCount = false;
          if (comp->useCompressedPointers())
             {
             if (firstChild->getOpCode().isStoreIndirect()
                   && firstChild->getReferenceCount() > 1)
                {
+               TR_ASSERT_FATAL_WITH_NODE(node, false, "Filip: Should not reach here!");
                firstChild->decReferenceCount();
                fixRefCount = true;
                }
