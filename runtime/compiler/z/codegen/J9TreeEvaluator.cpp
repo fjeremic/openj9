@@ -5724,15 +5724,6 @@ J9::Z::TreeEvaluator::evaluateNULLCHKWithPossibleResolve(TR::Node * node, bool n
          }
       else
          {
-         if (comp->useCompressedPointers())
-            {
-            if (firstChild->getOpCode().isStoreIndirect()
-                  && firstChild->getReferenceCount() > 1)
-               {
-               TR_ASSERT_FATAL_WITH_NODE(node, false, "Filip: Should not reach here!");
-               firstChild->decReferenceCount();
-               }
-            }
          cg->evaluate(firstChild);
          }
       }
