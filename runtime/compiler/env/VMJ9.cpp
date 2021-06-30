@@ -7493,10 +7493,21 @@ TR_J9VM::inlineNativeCall(TR::Compilation * comp, TR::TreeTop * callNodeTreeTop,
          // A() -> B() -> s/r/R.getCallerClass(1) => B()
          // 2      1      0
          {
-         //we need to bail out since we create a class pointer const with cpIndex of -1
-         if ((isAOT_DEPRECATED_DO_NOT_USE() && !comp->getOption(TR_UseSymbolValidationManager)) ||
-             ((!(vmThread()->javaVM->extendedRuntimeFlags &  J9_EXTENDED_RUNTIME_ALLOW_GET_CALLER_CLASS)) &&
-              methodID == TR::sun_reflect_Reflection_getCallerClass))
+#if defined(J9VM_OPT_JITSERVER)
+         // TODO (#13098): Enable getCallerClass optimization for JITServer
+         if (comp->getPersistentInfo()->getRemoteCompilationMode() == JITServer::SERVER ||
+             comp->getPersistentInfo()->getRemoteCompilationMode() == JITServer::CLIENT)
+            return 0;
+#endif
+
+         // We need to bail out since we create a class pointer const with cpIndex of -1
+         if (isAOT_DEPRECATED_DO_NOT_USE() && !comp->getOption(TR_UseSymbolValidationManager))
+            {
+            return 0;
+            }
+
+         static const bool disableGetCallerClassReduction = feGetEnv("TR_DisableGetCallerClassReduction") != NULL;
+         if (disableGetCallerClassReduction)
             {
             return 0;
             }
